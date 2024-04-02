@@ -10,6 +10,10 @@ const sequelize = new Sequelize(
     dialect: 'mysql',
   }
 );
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
 sequelize
   .authenticate()
@@ -20,11 +24,7 @@ sequelize
     console.log('Error' + err);
   });
 
-const db = {};
-
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-
+// MODLELI
 db.korisnik = require('../models/UserModel')(sequelize, DataTypes);
 
 db.sequelize
@@ -47,3 +47,5 @@ db.korisnik.prototype.comparePassword = async function (canditatePassword) {
   const isMatch = await bcrypt.compare(canditatePassword, this.password);
   return isMatch;
 };
+
+module.exports = db;
