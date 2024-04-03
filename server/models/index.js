@@ -26,6 +26,7 @@ sequelize
 
 // MODLELI
 db.korisnik = require('../models/UserModel')(sequelize, DataTypes);
+db.product = require('../models/ProductModel')(sequelize, DataTypes);
 
 db.sequelize
   .sync()

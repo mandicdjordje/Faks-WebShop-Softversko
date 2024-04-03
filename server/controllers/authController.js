@@ -2,7 +2,6 @@ const CustomError = require(`../errors/index.js`);
 const db = require('../models/index.js');
 const bcript = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const StatusCodes = require('http-status-codes');
 
 const register = async (req, res, next) => {
   const encriptedPassword = await db.korisnik.prototype.encryptPassword(
@@ -25,7 +24,7 @@ const register = async (req, res, next) => {
       token: '',
     });
 
-    res.status(StatusCodes.OK).json({ success: true });
+    res.status(200).json({ success: true });
   } else {
     throw new CustomError.BadRequestError('Email postoji');
   }
@@ -60,7 +59,7 @@ const login = async (req, res) => {
 
   user.isVerified = true;
 
-  res.status(200).json({ token: token });
+  res.status(201).json({ token: token });
 };
 
 module.exports = { register, login };

@@ -11,9 +11,11 @@ require('./models/index'); // TODO: Remove this later when router and controller
 require('dotenv').config();
 
 const authRouter = require('./routes/authRoute');
+const productRouter = require('./routes/productRoute');
 
 // routes
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/product', productRouter);
 
 var port = process.env.BE_PORT || 3000;
 
