@@ -17,6 +17,11 @@ const productRouter = require('./routes/productRoute');
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/product', productRouter);
 
+app.use((err, req, res, next) => {
+  res.status(err.statusCode);
+  res.json({ error: err.message });
+});
+
 var port = process.env.BE_PORT || 3000;
 
 app.listen(port, () => {
