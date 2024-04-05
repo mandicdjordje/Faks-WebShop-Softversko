@@ -25,8 +25,9 @@ sequelize
   });
 
 // MODLELI
-db.korisnik = require('../models/UserModel')(sequelize, DataTypes);
-db.product = require('../models/ProductModel')(sequelize, DataTypes);
+db.korisnik = require('./UserModel')(sequelize, DataTypes);
+db.product = require('./ProductModel')(sequelize, DataTypes);
+db.basket = require('./BasketModel')(sequelize, DataTypes);
 
 db.sequelize
   .sync()
@@ -48,5 +49,10 @@ db.korisnik.prototype.comparePassword = async function (canditatePassword) {
   const isMatch = await bcrypt.compare(canditatePassword, this.password);
   return isMatch;
 };
+
+// VEZE
+
+db.product.belongsToMany(db.basket, { through: db.basket });
+db.korisnik.belongsToMany(db.product, { through: db.basket });
 
 module.exports = db;
