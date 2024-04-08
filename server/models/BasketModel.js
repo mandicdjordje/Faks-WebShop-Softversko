@@ -1,5 +1,3 @@
-// Trega Uraditi Model i povezati
-
 module.exports = (sequelize, DataTypes) => {
   const Basket = sequelize.define(
     'basket',

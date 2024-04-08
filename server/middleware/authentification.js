@@ -18,7 +18,7 @@ const authenticateUser = async (req, res, next) => {
 
     req.userId = userId;
     req.user = user;
-
+    
     next();
   } catch (error) {
     next(error);

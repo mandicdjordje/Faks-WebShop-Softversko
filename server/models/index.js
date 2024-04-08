@@ -28,6 +28,7 @@ sequelize
 db.korisnik = require('./UserModel')(sequelize, DataTypes);
 db.product = require('./ProductModel')(sequelize, DataTypes);
 db.basket = require('./BasketModel')(sequelize, DataTypes);
+db.basket_product = require('./Basket-ProductModel')(sequelize, DataTypes);
 
 db.sequelize
   .sync()
@@ -50,9 +51,22 @@ db.korisnik.prototype.comparePassword = async function (canditatePassword) {
   return isMatch;
 };
 
-// VEZE
+// VEZE IZMEDJU MODELA
 
-db.product.belongsToMany(db.basket, { through: db.basket });
-db.korisnik.belongsToMany(db.product, { through: db.basket });
+db.korisnik.hasMany(db.basket, {
+  foreignKey: 'korisnik_id',
+});
+db.basket.belongsTo(db.korisnik, {
+  foreignKey: 'korisnik_id',
+});
+
+db.basket.belongsToMany(db.product, {
+  through: db.basket_product,
+  foreignKey: 'basket_id',
+});
+db.product.belongsToMany(db.basket, {
+  through: db.basket_product,
+  foreignKey: 'product_id',
+});
 
 module.exports = db;
