@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DOUBLE,
       allowNull: false,
     },
+    status: {
+      type: DataTypes.STRING,
+      status: ['Accepted', 'Decline'],
+      allowNull: false,
+    },
   });
 
   return BasketPorudzbina;

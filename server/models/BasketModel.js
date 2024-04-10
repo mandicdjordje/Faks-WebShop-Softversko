@@ -7,6 +7,11 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      status: {
+        type: DataTypes.STRING,
+        status: ['Accepted', 'Decline'],
+        allowNull: false,
+      },
     },
     { freezeTableName: true }
   );
