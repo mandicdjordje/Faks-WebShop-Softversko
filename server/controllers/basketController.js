@@ -43,6 +43,7 @@ const getUserBaskets = async (req, res) => {
   const baskets = await db.basket.findAll({
     where: {
       korisnik_id: user_id,
+      status: 'Accepted',
     },
   });
 
