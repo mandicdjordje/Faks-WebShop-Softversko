@@ -37,6 +37,20 @@ const createBasket = async (req, res) => {
   res.status(201).json(basket);
 };
 
+const getUserBaskets = async (req, res) => {
+  let user_id = req.userId;
+
+  const baskets = await db.basket.findAll({
+    where: {
+      korisnik_id: user_id,
+    },
+  });
+
+  res.status(200).json(baskets);
+};
+const getProductFromBasket = async (req, res) => {
+  const basket_id = req.params.basket_id;
+};
 const deleteBasket = async (req, res) => {
   const { basket_id } = req.params;
 
@@ -52,22 +66,46 @@ const deleteBasket = async (req, res) => {
     }
   );
 
-  let basket_product = await db.basket_product.findAll({
+  let basket_products = await db.basket_product.findAll({
     where: {
       basket_id: basket_id,
     },
   });
 
-  await db.product.update({where:{
+  basket_products.forEach(async (bas_product) => {
+    let product = await db.product.findOne({
+      where: {
+        product_id: bas_product.product_id,
+      },
+    });
 
-    
+    await db.product.update(
+      {
+        quantity: product.quantity + bas_product.quantity,
+      },
+      {
+        where: {
+          product_id: product.product_id,
+        },
+      }
+    );
 
+    await db.basket_product.update(
+      { status: 'Decline' },
+      {
+        where: {
+          product_id: bas_product.basket_id,
+        },
+      }
+    );
+  });
 
-  }})
-
-  console.log(basket_product);
-
-  res.status(204).json({ success: true });
+  res.status(204).json();
 };
 
-module.exports = { createBasket, deleteBasket };
+module.exports = {
+  createBasket,
+  getUserBaskets,
+  getProductFromBasket,
+  deleteBasket,
+};

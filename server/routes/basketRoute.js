@@ -8,6 +8,7 @@ const {
 const {
   createBasket,
   deleteBasket,
+  getUserBaskets,
 } = require('../controllers/basketController');
 
 router.post(
@@ -16,7 +17,12 @@ router.post(
   authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP', 'USER'),
   createBasket
 );
-
+router.get(
+  '/all',
+  authenticateUser,
+  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP'),
+  getUserBaskets
+);
 router.delete(
   '/delete/:basket_id',
   authenticateUser,
