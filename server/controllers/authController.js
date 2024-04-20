@@ -26,6 +26,7 @@ const register = async (req, res, next) => {
 
     res.status(200).json({ success: true });
   } else {
+    res.status(400).json({ success: false });
     throw new CustomError.BadRequestError('Email postoji');
   }
 };
