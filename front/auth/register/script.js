@@ -3,6 +3,7 @@ const prezime = document.getElementById('prezime');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
+const logIn = document.getElementById('logIn');
 
 const submit = document.getElementById('submit');
 
@@ -80,4 +81,8 @@ submit.addEventListener('click', async (e) => {
   } else {
     console.log('Nije tacno');
   }
+});
+logIn.addEventListener('click', (e) => {
+  e.preventDefault();
+  window.location.href = '../logIn/logIn.html';
 });
