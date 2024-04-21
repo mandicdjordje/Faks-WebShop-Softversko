@@ -22,4 +22,18 @@ const getCurrentInfo = async (req, res) => {
   res.status(200).json({ body });
 };
 
-module.exports = { getCurrentInfo };
+const createAdminWebShop = async (req, res) => {
+  const { email } = req.params;
+
+  const userZaUpdate = await db.korisnik.findOne({ where: { email: email } });
+
+  if (!userZaUpdate) {
+    res.status(400).json('User nije nadjen');
+    throw new Error('User nije nadjen');
+  }
+  userZaUpdate.role = 'ADMIN_WEB_SHOP';
+
+  res.status(200).json({ success: true });
+};
+
+module.exports = { getCurrentInfo, createAdminWebShop };

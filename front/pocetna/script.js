@@ -3,10 +3,8 @@ const ukloniAdmina = document.getElementById('ukloniAdmina');
 const dodajProizvod = document.getElementById('dodajProizvod');
 const ukloniProizvod = document.getElementById('ukloniProizvod');
 
-dodjaAdmina.addEventListener('click', (e) => {});
 
 (async function () {
-  debugger;
   await fetch('http://localhost:3001/api/v1/user/currentInfo', {
     method: 'GET',
     headers: {
@@ -18,14 +16,18 @@ dodjaAdmina.addEventListener('click', (e) => {});
       return response.json();
     })
     .then((data) => {
-      if (data.admin_root == true) {
-        console.log('ADMIN ROOT');
+      if (data.body.admin_root == true) {
       }
-      if (data.admin_web_shop) {
-        console.log('ADMIN WEBSHOP');
+      if (data.body.admin_web_shop) {
+        dodjaAdmina.style.display = 'none';
+        ukloniAdmina.style.display = 'none';
       }
-
-      console.log('USERRR');
+      if (!data.body.admin_web_shop && !data.body.admin_root) {
+        dodjaAdmina.style.display = 'none';
+        ukloniAdmina.style.display = 'none';
+        dodajProizvod.style.display = 'none';
+        ukloniProizvod.style.display = 'none';
+      }
     })
     .catch((err) => {
       console.log(err);

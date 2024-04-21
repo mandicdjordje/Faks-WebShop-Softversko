@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { getCurrentInfo } = require('../controllers/userController');
+const {
+  getCurrentInfo,
+  createAdminWebShop,
+} = require('../controllers/userController');
 
 const {
   authenticateUser,
@@ -9,5 +12,11 @@ const {
 } = require('../middleware/authentification');
 
 router.get('/currentInfo', authenticateUser, getCurrentInfo);
+router.post(
+  '/create/AdminWebShop/?email',
+  authenticateUser,
+  authorizePermissions('ADMIN_ROOT'),
+  createAdminWebShop
+);
 
 module.exports = router;
