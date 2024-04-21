@@ -1,0 +1,16 @@
+body {
+  margin: 20px;
+}
+.pocetna {
+  display: flex;
+}
+.header {
+  display: flex;
+}
+.element {
+  padding: 20px;
+  border: 1px solid black;
+}
+.element:hover {
+  cursor: pointer;
+}

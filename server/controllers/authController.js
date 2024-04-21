@@ -3,6 +3,7 @@ const db = require('../models/index.js');
 const bcript = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
 const register = async (req, res, next) => {
   const encriptedPassword = await db.korisnik.prototype.encryptPassword(
     req.body.password
@@ -62,5 +63,8 @@ const login = async (req, res) => {
 
   res.status(201).json({ token: token });
 };
+
+
+
 
 module.exports = { register, login };

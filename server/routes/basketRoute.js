@@ -20,7 +20,7 @@ router.post(
 router.get(
   '/all',
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP'),
+  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP', 'USER'),
   getUserBaskets
 );
 router.delete(
