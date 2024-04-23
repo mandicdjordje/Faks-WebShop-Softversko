@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const db = require('../models/index.js');
 
 const getCurrentInfo = async (req, res) => {
@@ -23,17 +24,30 @@ const getCurrentInfo = async (req, res) => {
 };
 
 const createAdminWebShop = async (req, res) => {
-  const { email } = req.params;
+  const email = req.body.email;
 
-  const userZaUpdate = await db.korisnik.findOne({ where: { email: email } });
+  const user = await db.korisnik.findOne({ where: { email: email } });
 
-  if (!userZaUpdate) {
-    res.status(400).json('User nije nadjen');
-    throw new Error('User nije nadjen');
+  if (!user) {
+    res.status(400).json({ err: 'User nije nadjen' });
   }
-  userZaUpdate.role = 'ADMIN_WEB_SHOP';
+
+  const userZaUpdate = await db.korisnik.update(
+    { role: 'ADMIN_WEB_SHOP' },
+    { where: { email: email } }
+  );
 
   res.status(200).json({ success: true });
 };
 
-module.exports = { getCurrentInfo, createAdminWebShop };
+const deleteAdminWebShop = async(req,res)=>{
+
+  const email = req.body.email;
+
+  
+
+
+
+}
+
+module.exports = { getCurrentInfo, createAdminWebShop,deleteAdminWebShop };

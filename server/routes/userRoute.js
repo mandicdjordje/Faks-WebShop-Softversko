@@ -13,7 +13,7 @@ const {
 
 router.get('/currentInfo', authenticateUser, getCurrentInfo);
 router.post(
-  '/create/AdminWebShop/?email',
+  '/create/AdminWebShop',
   authenticateUser,
   authorizePermissions('ADMIN_ROOT'),
   createAdminWebShop
