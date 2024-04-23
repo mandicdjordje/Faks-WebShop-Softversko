@@ -10,10 +10,10 @@ const submit = document.getElementById('submit');
 const kolikoKaraktera = (input, odkaraktera, doKaraktera) => {
   const duzinaStringa = input.length;
   if (duzinaStringa < odkaraktera) {
-    console.log(`Niste uneli dovoljno karaktera minimalno je ${odkaraktera}`);
+    alert(`Niste uneli dovoljno karaktera minimalno je ${odkaraktera}`);
     return false;
   } else if (duzinaStringa > doKaraktera) {
-    console.log(`Uneli ste previse karaktera maksimum je ${doKaraktera}`);
+    alert(`Uneli ste previse karaktera maksimum je ${doKaraktera}`);
     return false;
   } else {
     console.log('SUPER');
@@ -45,12 +45,12 @@ submit.addEventListener('click', async (e) => {
   e.preventDefault();
 
   if (
-    ((kolikoKaraktera(ime.value, 3, 15),
-    checkEmail(email.value),
-    kolikoKaraktera(prezime.value, 5, 25),
-    kolikoKaraktera(password.value, 5, 25),
-    kolikoKaraktera(password2.value, 5, 25)),
-    passwordMatch(password.value, password2.value))
+    kolikoKaraktera(ime.value, 3, 15) &&
+    checkEmail(email.value) &&
+    kolikoKaraktera(prezime.value, 5, 25) &&
+    kolikoKaraktera(password.value, 5, 25) &&
+    kolikoKaraktera(password2.value, 5, 25) &&
+    passwordMatch(password.value, password2.value)
   ) {
     const data = {
       firstName: ime.value,
@@ -59,30 +59,31 @@ submit.addEventListener('click', async (e) => {
       password: password.value,
     };
 
-    await fetch(`http://localhost:3001/api/v1/auth/register`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
+    try {
+      const response = await fetch('http://localhost:3001/api/v1/auth/register', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
         console.log(result);
         if (result.success) {
           window.location.href = '../logIn/logIn.html';
+        } else {
+          console.log('Registracija nije uspela.');
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      } else {
+        throw new Error('Network response was not ok.');
+      }
+    } catch (error) {
+      console.error('Došlo je do greške prilikom slanja zahteva:', error);
+      alert('Došlo je do greške prilikom registracije.');
+    }
   } else {
-    console.log('Nije tacno');
+    console.log('Podaci nisu validni.');
   }
-});
-logIn.addEventListener('click', (e) => {
-  e.preventDefault();
-  window.location.href = '../logIn/logIn.html';
 });

@@ -1,3 +1,21 @@
+html{
+  background-image: url(https://img.freepik.com/free-photo/arrangement-black-friday-shopping-carts-with-copy-space_23-2148667047.jpg?w=1380&t=st=1713877640~exp=1713878240~hmac=22b6e6dbf04c3230c659b6f31b2e718454a953e69ae2441f1075deda4b084198);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  min-height: 100vh;;
+}
 body {
   margin: 20px;
+}
+.polje{
+  margin-bottom: 20px;
+}
+.celaRegistracija{
+  width: 50%;
+  padding: 25px;
+  border-radius: 3%;
+  background-color: #6b6b47;
+}
+h1{
+  font-style: italic;
 }
