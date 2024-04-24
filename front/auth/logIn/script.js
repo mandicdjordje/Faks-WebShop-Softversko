@@ -1,6 +1,6 @@
 const email = document.getElementById('email');
 const password = document.getElementById('password');
-const logIn = document.getElementById('logIn');
+const logIn = document.getElementById('submit');
 
 function checkEmail(input) {
   const re =
@@ -38,6 +38,7 @@ logIn.addEventListener('click', async (e) => {
         }
       })
       .catch((err) => {
+        
         console.log(err);
       });
   }

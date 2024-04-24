@@ -44,10 +44,6 @@ const deleteAdminWebShop = async(req,res)=>{
 
   const email = req.body.email;
 
-  
-
-
-
 }
 
 module.exports = { getCurrentInfo, createAdminWebShop,deleteAdminWebShop };

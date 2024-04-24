@@ -3,7 +3,6 @@ const prezime = document.getElementById('prezime');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
-const logIn = document.getElementById('logIn');
 
 const submit = document.getElementById('submit');
 
@@ -16,7 +15,6 @@ const kolikoKaraktera = (input, odkaraktera, doKaraktera) => {
     alert(`Uneli ste previse karaktera maksimum je ${doKaraktera}`);
     return false;
   } else {
-    console.log('SUPER');
     return true;
   }
 };
@@ -43,7 +41,6 @@ function passwordMatch(password, password2) {
 
 submit.addEventListener('click', async (e) => {
   e.preventDefault();
-
   if (
     kolikoKaraktera(ime.value, 3, 15) &&
     checkEmail(email.value) &&
@@ -60,13 +57,16 @@ submit.addEventListener('click', async (e) => {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/api/v1/auth/register', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        'http://localhost:3001/api/v1/auth/register',
+        {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
