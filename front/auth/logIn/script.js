@@ -21,25 +21,22 @@ logIn.addEventListener('click', async (e) => {
       password: password.value,
     };
 
-    await fetch('http://localhost:3001/api/v1/auth/logIn', {
+    const response = await fetch('http://localhost:3001/api/v1/auth/logIn', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
       },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        localStorage.setItem('token', data.token);
-        if (data.token) {
-          window.location.href = '../../pocetna/pocetna.html';
-        }
-      })
-      .catch((err) => {
-        
-        console.log(err);
-      });
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      localStorage.setItem('token', result.token);
+      window.location.href = '../../pocetna/pocetna.html';
+    } else {
+      alert('Logovanje nije uspelo');
+    }
+  } else {
+    alert('Nije ispravan email');
   }
 });

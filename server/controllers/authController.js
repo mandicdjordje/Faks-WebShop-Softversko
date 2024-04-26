@@ -1,5 +1,7 @@
 const CustomError = require(`../errors/index.js`);
-const db = require('../models/index.js');
+// const db = require('../models/index.js');
+const db = require('../models/index');
+
 const bcript = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -37,11 +39,11 @@ const login = async (req, res) => {
   if (!email || !password) {
     throw new CustomError.BadRequestError('Please provide email and password');
   }
-
+  console.log(email);
   const user = await db.korisnik.findOne({ where: { email: email } });
-
+  console.log(user);
   if (!user) {
-    throw new CustomError.UnauthenticatedError('Invalid Credentials');
+    throw new CustomError.UnauthenticatedError('User does not exist');
   }
 
   const isPasswordCorrect = await bcript.compare(password, user.password);
