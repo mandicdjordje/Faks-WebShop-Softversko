@@ -1,13 +1,13 @@
-const { Sequelize, DataTypes, Op } = require('sequelize');
-const bcrypt = require('bcrypt');
-require('dotenv').config();
+const { Sequelize, DataTypes, Op } = require("sequelize");
+const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USERNAME,
   process.env.DB_PASSWORD,
   {
-    dialect: 'mysql',
+    dialect: "mysql",
   }
 );
 const db = {};
@@ -18,17 +18,17 @@ db.sequelize = sequelize;
 sequelize
   .authenticate()
   .then(() => {
-    console.log('connected..');
+    console.log("connected..");
   })
   .catch((err) => {
-    console.log('Error' + err);
+    console.log("Error" + err);
   });
 
 // MODLELI
-db.korisnik = require('./UserModel')(sequelize, DataTypes);
-db.product = require('./ProductModel')(sequelize, DataTypes);
-db.basket = require('./BasketModel')(sequelize, DataTypes);
-db.basket_product = require('./Basket-ProductModel')(sequelize, DataTypes);
+db.korisnik = require("./UserModel")(sequelize, DataTypes);
+db.product = require("./ProductModel")(sequelize, DataTypes);
+db.basket = require("./BasketModel")(sequelize, DataTypes);
+db.basket_product = require("./Basket-ProductModel")(sequelize, DataTypes);
 
 db.sequelize
   .sync()
@@ -36,7 +36,7 @@ db.sequelize
     console.log(`Table and model sync successfully`);
   })
   .catch((err) => {
-    console.log('Error syncing the table and model');
+    console.log("Error syncing the table and model");
   });
 
 db.korisnik.prototype.encryptPassword = async function (canditatePassword) {
@@ -54,19 +54,19 @@ db.korisnik.prototype.comparePassword = async function (canditatePassword) {
 // VEZE IZMEDJU MODELA
 
 db.korisnik.hasMany(db.basket, {
-  foreignKey: 'korisnik_id',
+  foreignKey: "korisnik_id",
 });
 db.basket.belongsTo(db.korisnik, {
-  foreignKey: 'korisnik_id',
+  foreignKey: "korisnik_id",
 });
 
 db.basket.belongsToMany(db.product, {
   through: db.basket_product,
-  foreignKey: 'basket_id',
+  foreignKey: "basket_id",
 });
 db.product.belongsToMany(db.basket, {
   through: db.basket_product,
-  foreignKey: 'product_id',
+  foreignKey: "product_id",
 });
 
 module.exports = db;

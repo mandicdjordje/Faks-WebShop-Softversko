@@ -1,5 +1,5 @@
-const email = document.getElementById('email');
-const ukloniButton = document.getElementById('ukloniButton');
+const email = document.getElementById("email");
+const ukloniButton = document.getElementById("ukloniButton");
 
 function checkEmail(input) {
   const re =
@@ -11,19 +11,40 @@ function checkEmail(input) {
   }
 }
 
-
-ukloniButton.addEventListener('click',async e=>{
+ukloniButton.addEventListener("click", async (e) => {
   e.preventDefault();
 
-  if (email.value === '') {
-    console.log('Prvo unesite email');
+  if (email.value === "") {
+    console.log("Prvo unesite email");
     return;
   } else if (!checkEmail(email.value)) {
-    console.log('Email nije validan');
+    console.log("Email nije validan");
     return;
   }
 
-  // await fetch('')
+  try {
+    const response = await fetch(
+      `http://localhost:3001/api/v1/user/delete/AdminWebShop/${email.value}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
+    const result = await response.json();
+    if (result.success) {
+      // Ovo lepo da se stavi da se ispise
+      console.log("Uspesno uklonjen status admina web_shopa");
+    } else {
+      throw new Error("admin nije pronadjen");
+    }
 
-})
+    console.log(result);
+  } catch (error) {
+    alert(error);
+    console.error(error);
+  }
+});

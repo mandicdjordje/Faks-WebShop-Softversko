@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const {
@@ -7,30 +7,30 @@ const {
   getAllProduct,
   updateProduct,
   subtractProductsQuantity,
-} = require('../controllers/productController');
+} = require("../controllers/productController");
 const {
   authenticateUser,
   authorizePermissions,
-} = require('../middleware/authentification');
+} = require("../middleware/authentification");
 
 router.post(
-  '/create',
+  "/create",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP'),
+  authorizePermissions("ADMIN_ROOT", "ADMIN_SHOP"),
   createProduct
 );
 
 router.put(
-  '/update/:product_id',
+  "/update/:product_id",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP'),
+  authorizePermissions("ADMIN_ROOT", "ADMIN_SHOP"),
   updateProduct
 );
 
-router.get('/all', getAllProduct);
+router.get("/all", getAllProduct);
 
-router.get('/:productName', getProduct);
+router.get("/:productName", getProduct);
 
-router.post('/:product_id/subtract/quantity', subtractProductsQuantity);
+router.post("/:product_id/subtract/quantity", subtractProductsQuantity);
 
 module.exports = router;

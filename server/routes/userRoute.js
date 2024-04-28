@@ -1,22 +1,28 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const {
   getCurrentInfo,
   createAdminWebShop,
-} = require('../controllers/userController');
+  deleteAdminWebShop,
+} = require("../controllers/userController");
 
 const {
   authenticateUser,
   authorizePermissions,
-} = require('../middleware/authentification');
+} = require("../middleware/authentification");
 
-router.get('/currentInfo', authenticateUser, getCurrentInfo);
+router.get("/currentInfo", authenticateUser, getCurrentInfo);
 router.post(
-  '/create/AdminWebShop',
+  "/create/AdminWebShop",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT'),
+  authorizePermissions("ADMIN_ROOT"),
   createAdminWebShop
 );
-
+router.delete(
+  "/delete/AdminWebShop/:email",
+  authenticateUser,
+  authorizePermissions("ADMIN_ROOT"),
+  deleteAdminWebShop
+);
 module.exports = router;

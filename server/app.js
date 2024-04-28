@@ -1,24 +1,24 @@
-require('express-async-errors');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+require("express-async-errors");
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 
-require('dotenv').config();
+require("dotenv").config();
 
-const authRouter = require('./routes/authRoute');
-const userRouter = require('./routes/userRoute');
-const productRouter = require('./routes/productRoute');
-const basketRouter = require('./routes/basketRoute');
+const authRouter = require("./routes/authRoute");
+const userRouter = require("./routes/userRoute");
+const productRouter = require("./routes/productRoute");
+const basketRouter = require("./routes/basketRoute");
 
 // routes
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/user', userRouter);
-app.use('/api/v1/product', productRouter);
-app.use('/api/v1/basket', basketRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/product", productRouter);
+app.use("/api/v1/basket", basketRouter);
 
 app.use((err, req, res, next) => {
   res.status(err.statusCode);
