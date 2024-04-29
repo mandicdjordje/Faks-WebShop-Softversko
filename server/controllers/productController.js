@@ -1,6 +1,6 @@
-const db = require("../models/index");
-const CustomError = require("../errors/index");
-const StatusCodes = require("http-status-codes");
+const db = require('../models/index');
+const CustomError = require('../errors/index');
+const StatusCodes = require('http-status-codes');
 
 const createProduct = async (req, res) => {
   const { productName, quantity, price } = req.body;
@@ -21,8 +21,8 @@ const createProduct = async (req, res) => {
     });
     res.status(201).json({ success: true });
   } else {
-    res.status(400).json("Nije dobro");
-    throw new CustomError.BadRequestError("Unesi Sve Podatke");
+    res.status(400).json('Nije dobro');
+    throw new CustomError.BadRequestError('Unesi Sve Podatke');
   }
 };
 
@@ -78,10 +78,28 @@ const subtractProductsQuantity = async (req, res) => {
   res.status(200).json({ product });
 };
 
+const deleteProduct = async (req, res) => {
+  const productName = req.params.productName;
+
+  const product = await db.product.findOne({
+    where: { productName: productName },
+  });
+  console.log(product);
+  if (product) {
+    await product.destroy();
+    res.status(204).send();
+  } else {
+    res.status(404).json({
+      message: 'proizvod nije pronadjen',
+    });
+  }
+};
+
 module.exports = {
   createProduct,
   getProduct,
   getAllProduct,
   updateProduct,
   subtractProductsQuantity,
+  deleteProduct,
 };
