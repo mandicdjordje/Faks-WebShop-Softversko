@@ -5,6 +5,14 @@ const StatusCodes = require("http-status-codes");
 const createProduct = async (req, res) => {
   const { productName, quantity, price } = req.body;
 
+  const nazivProizvoda = await db.product.findOne({
+    where: { productName: productName },
+  });
+
+  if (nazivProizvoda) {
+    res.status(406).json({ success: false });
+  }
+
   if (productName && quantity && price) {
     const proizvod = await db.product.create({
       productName: productName,

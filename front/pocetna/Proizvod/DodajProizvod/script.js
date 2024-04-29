@@ -4,6 +4,12 @@ const kolicinaProizvoda = document.getElementById("kolicinaProizvoda");
 
 const dodajProizvod = document.getElementById("dodajProizvod");
 
+const velikoSlovoRec = (rec) => {
+  const prvoSlovo = rec.charAt(0).toUpperCase();
+  const ostalaRec = rec.substring(1).toLowerCase();
+  return prvoSlovo.concat(ostalaRec);
+};
+
 dodajProizvod.addEventListener("click", async (e) => {
   try {
     if (
@@ -12,7 +18,7 @@ dodajProizvod.addEventListener("click", async (e) => {
       kolicinaProizvoda.value.length > 0
     ) {
       data = {
-        productName: imeProizvoda.value,
+        productName: velikoSlovoRec(imeProizvoda.value),
         quantity: kolicinaProizvoda.value,
         price: cenaProizvoda.value,
       };
@@ -28,7 +34,9 @@ dodajProizvod.addEventListener("click", async (e) => {
           },
         }
       );
-
+      if (response.status === 406) {
+        throw new Error("Proizvod vec postoji");
+      }
       const result = await response.json();
 
       if (result.success) {
