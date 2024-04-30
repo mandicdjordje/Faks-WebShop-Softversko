@@ -8,6 +8,7 @@ const {
   updateProduct,
   subtractProductsQuantity,
   deleteProduct,
+  getProductsFromProductName,
 } = require('../controllers/productController');
 const {
   authenticateUser,
@@ -30,12 +31,17 @@ router.put(
 
 router.get('/all', getAllProduct);
 
-router.get('/:productName', getProduct);
+router.get(
+  '/:productName',
+  authenticateUser,
+  authorizePermissions('ADMIN_ROOT', 'ADMIN_WEB_SHOP'),
+  getProductsFromProductName
+);
 
 router.post('/:product_id/subtract/quantity', subtractProductsQuantity);
 
 router.delete(
-  '/delete/:productName',
+  '/delete/:productId',
   authenticateUser,
   authorizePermissions('ADMIN_ROOT', 'ADMIN_WEB_SHOP'),
   deleteProduct

@@ -1,7 +1,7 @@
 const db = require('../models/index');
 const CustomError = require('../errors/index');
 const StatusCodes = require('http-status-codes');
-
+const { Op } = require('sequelize');
 const createProduct = async (req, res) => {
   const { productName, quantity, price } = req.body;
 
@@ -46,6 +46,21 @@ const getProduct = async (req, res) => {
   }
   res.status(200).json({ product });
 };
+
+const getProductsFromProductName = async (req, res) => {
+  const productName = req.params.productName;
+
+  console.log(productName);
+  const products = await db.product.findAll({
+    where: {
+      productName: { [Op.like]: `%${productName}%` },
+    },
+  });
+
+  res.status(200).json({ products });
+
+  // console.log(product);
+};
 const updateProduct = async (req, res) => {
   let productId = req.params.product_id;
   let { productName, quantity, price } = req.body;
@@ -78,13 +93,30 @@ const subtractProductsQuantity = async (req, res) => {
   res.status(200).json({ product });
 };
 
+// DELETE PRODUCT SA IMENOM TRENUTNO NE TREBA
+// const deleteProduct = async (req, res) => {
+//   const productName = req.params.productName;
+
+//   const product = await db.product.findOne({
+//     where: { productName: productName },
+//   });
+//   console.log(product);
+//   if (product) {
+//     await product.destroy();
+//     res.status(204).send();
+//   } else {
+//     res.status(404).json({
+//       message: 'proizvod nije pronadjen',
+//     });
+//   }
+// };
+
 const deleteProduct = async (req, res) => {
-  const productName = req.params.productName;
+  const productId = req.params.productId;
 
   const product = await db.product.findOne({
-    where: { productName: productName },
+    where: { product_id: productId },
   });
-  console.log(product);
   if (product) {
     await product.destroy();
     res.status(204).send();
@@ -102,4 +134,5 @@ module.exports = {
   updateProduct,
   subtractProductsQuantity,
   deleteProduct,
+  getProductsFromProductName,
 };

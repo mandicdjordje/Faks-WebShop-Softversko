@@ -1,0 +1,34 @@
+.proizvodi {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.proizvod {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 400px;
+  background-color: greenyellow;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+.prozivod-elementi {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.proizvod p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ukloni {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dugmeUkloni {
+  padding: 10px;
+  letter-spacing: 1px;
+}

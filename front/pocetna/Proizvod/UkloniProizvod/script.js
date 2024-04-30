@@ -24,7 +24,6 @@ ukloniButton.addEventListener('click', async (e) => {
           },
         }
       );
-      console.log('D');
       if (response.status === 404) {
         throw new Error('Proizvod nije nadjen');
       }
