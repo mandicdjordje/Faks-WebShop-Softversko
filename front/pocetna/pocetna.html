@@ -39,6 +39,13 @@
       <p
         class="element"
         id="ukloniProizvod"
+        onclick='window.location.href="Proizvod/UkloniProizvod/index.html"'
+      >
+        Porudzbine
+      </p>
+      <p
+        class="element"
+        id="ukloniProizvod"
         onclick='window.location.href="../auth/logIn/logIn.html"'
       >
         Log In
@@ -52,6 +59,31 @@
       </p>
     </header>
 
-    <script src="script.js"></script>
+    <input
+      type="text"
+      placeholder="Unesi ime proizvoda"
+      id="pretragaProizvoda"
+    />
+    <button id="pretraziProizvodDugme">Pretrazi</button>
+
+    <div class="proizvodi" id="proizvodi">
+      <!-- <div class="proizvod">
+        <div class="prozivod-elementi">
+          <p id="ime-proizvoda" class="elementi">Ime</p>
+          <p id="kolicina-proizvoda" class="elementi">Kolicina</p>
+          <p id="cena-proizvoda" class="elementi">Cena</p>
+        </div>
+        <div class="ukloni">
+          <button id="plusDugme">+</button>
+          <p id="broj">0</p>
+          <button id="minusDugme">-</button>
+          <button id="ukloni">Dodaj</button>
+        </div>
+      </div> -->
+    </div>
+
+    <div class="korpa" id="korpa"></div>
+    <script src="pocetna.js"></script>
+    <script src="pretragaProizvoda.js"></script>
   </body>
 </html>

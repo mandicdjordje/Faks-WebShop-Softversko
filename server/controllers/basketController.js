@@ -1,7 +1,7 @@
-const db = require('../models/index');
+const db = require("../models/index");
 const CustomError = require(`../errors/index.js`);
-const StatusCodes = require('http-status-codes');
-const { where } = require('sequelize');
+const StatusCodes = require("http-status-codes");
+const { where } = require("sequelize");
 
 const createBasket = async (req, res) => {
   const user_id = req.userId;
@@ -9,7 +9,7 @@ const createBasket = async (req, res) => {
 
   const basket = await db.basket.create({
     korisnik_id: user_id,
-    status: 'Accepted',
+    status: "Accepted",
   });
 
   ordered_products.forEach(async (basket_product) => {
@@ -17,7 +17,7 @@ const createBasket = async (req, res) => {
       quantity: basket_product.quantity,
       product_id: basket_product.product_id,
       basket_id: basket.basket_id,
-      status: 'Accepted',
+      status: "Accepted",
     });
 
     let product = await db.product.findOne({
@@ -43,7 +43,7 @@ const getUserBaskets = async (req, res) => {
   const baskets = await db.basket.findAll({
     where: {
       korisnik_id: user_id,
-      status: 'Accepted',
+      status: "Accepted",
     },
   });
 
@@ -58,7 +58,7 @@ const deleteBasket = async (req, res) => {
   console.log(basket_id);
   await db.basket.update(
     {
-      status: 'Decline',
+      status: "Decline",
     },
     {
       where: {
@@ -92,7 +92,7 @@ const deleteBasket = async (req, res) => {
     );
 
     await db.basket_product.update(
-      { status: 'Decline' },
+      { status: "Decline" },
       {
         where: {
           product_id: bas_product.basket_id,

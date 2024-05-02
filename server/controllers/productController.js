@@ -1,7 +1,7 @@
-const db = require('../models/index');
-const CustomError = require('../errors/index');
-const StatusCodes = require('http-status-codes');
-const { Op } = require('sequelize');
+const db = require("../models/index");
+const CustomError = require("../errors/index");
+const StatusCodes = require("http-status-codes");
+const { Op } = require("sequelize");
 const createProduct = async (req, res) => {
   const { productName, quantity, price } = req.body;
 
@@ -21,8 +21,8 @@ const createProduct = async (req, res) => {
     });
     res.status(201).json({ success: true });
   } else {
-    res.status(400).json('Nije dobro');
-    throw new CustomError.BadRequestError('Unesi Sve Podatke');
+    res.status(400).json("Nije dobro");
+    throw new CustomError.BadRequestError("Unesi Sve Podatke");
   }
 };
 
@@ -33,16 +33,15 @@ const getAllProduct = async (req, res) => {
   res.status(201).json({ proizvodi });
 };
 
-const getProduct = async (req, res) => {
-  const productName = req.params.productName;
+const getProductFromId = async (req, res) => {
+  const product_id = req.params.product_id;
 
   let product = await db.product.findOne({
-    where: { productName: productName },
+    where: { product_id: product_id },
   });
+
   if (!product) {
-    throw new CustomError.NotFoundError(
-      `${productName} trenutno nema na raspolaganju`
-    );
+    res.status(404).json({ message: `Nema Produkta sa id_${product_id}` });
   }
   res.status(200).json({ product });
 };
@@ -57,9 +56,10 @@ const getProductsFromProductName = async (req, res) => {
     },
   });
 
+  if (products.length == 0) {
+    res.status(404).json({ message: "Nema proizvoda" });
+  }
   res.status(200).json({ products });
-
-  // console.log(product);
 };
 const updateProduct = async (req, res) => {
   let productId = req.params.product_id;
@@ -122,14 +122,14 @@ const deleteProduct = async (req, res) => {
     res.status(204).send();
   } else {
     res.status(404).json({
-      message: 'proizvod nije pronadjen',
+      message: "proizvod nije pronadjen",
     });
   }
 };
 
 module.exports = {
   createProduct,
-  getProduct,
+  getProductFromId,
   getAllProduct,
   updateProduct,
   subtractProductsQuantity,

@@ -1,12 +1,11 @@
 html {
-    background-image: url(https://www.kaspersky.com/content/en-global/images/repository/isc/2021/safe_shopping_1.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    min-height: 100vh;
-  }
-  .formaZaProizvod
-  {
-    padding: 25px;
-    border-radius: 3%;
-    background-color: #99ff66;
-  }
+  background-image: url(https://www.kaspersky.com/content/en-global/images/repository/isc/2021/safe_shopping_1.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  min-height: 100vh;
+}
+.formaZaProizvod {
+  padding: 25px;
+  border-radius: 3%;
+  background-color: #99ff66;
+}

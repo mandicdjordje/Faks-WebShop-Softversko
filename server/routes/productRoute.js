@@ -1,49 +1,48 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const {
   createProduct,
-  getProduct,
+  getProductFromId,
   getAllProduct,
   updateProduct,
   subtractProductsQuantity,
   deleteProduct,
   getProductsFromProductName,
-} = require('../controllers/productController');
+} = require("../controllers/productController");
 const {
   authenticateUser,
   authorizePermissions,
-} = require('../middleware/authentification');
+} = require("../middleware/authentification");
 
 router.post(
-  '/create',
+  "/create",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP'),
+  authorizePermissions("ADMIN_ROOT", "ADMIN_SHOP"),
   createProduct
 );
 
 router.put(
-  '/update/:product_id',
+  "/update/:product_id",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP'),
+  authorizePermissions("ADMIN_ROOT", "ADMIN_SHOP"),
   updateProduct
 );
-
-router.get('/all', getAllProduct);
-
+router.get("/all", getAllProduct);
 router.get(
-  '/:productName',
+  "/product_id/:product_id",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_WEB_SHOP'),
-  getProductsFromProductName
+  authorizePermissions("USER", "ADMIN_ROOT", "ADMIN_WEB_SHOP"),
+  getProductFromId
 );
+router.get("/name/:productName", getProductsFromProductName);
 
-router.post('/:product_id/subtract/quantity', subtractProductsQuantity);
+router.post("/:product_id/subtract/quantity", subtractProductsQuantity);
 
 router.delete(
-  '/delete/:productId',
+  "/delete/:productId",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_WEB_SHOP'),
+  authorizePermissions("ADMIN_ROOT", "ADMIN_WEB_SHOP"),
   deleteProduct
 );
 
