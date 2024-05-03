@@ -49,3 +49,14 @@ body {
   padding: 10px;
   letter-spacing: 1px;
 }
+.podaci-proizvod-korpa {
+  display: flex;
+}
+.podaci-proizvod-korpa p {
+  padding: 20px;
+}
+.dugmad-korpe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

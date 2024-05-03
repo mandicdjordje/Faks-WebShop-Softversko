@@ -6,7 +6,7 @@ const { where } = require("sequelize");
 const createBasket = async (req, res) => {
   const user_id = req.userId;
   const { ordered_products } = req.body;
-
+  console.log(ordered_products);
   const basket = await db.basket.create({
     korisnik_id: user_id,
     status: "Accepted",
