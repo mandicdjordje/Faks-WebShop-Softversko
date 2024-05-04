@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const BasketPorudzbina = sequelize.define('basket-product', {
+  const BasketPorudzbina = sequelize.define("basket-product", {
     basket_product_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -9,9 +9,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DOUBLE,
       allowNull: false,
     },
+    productName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     status: {
       type: DataTypes.STRING,
-      status: ['Accepted', 'Decline'],
+      status: ["Accepted", "Decline"],
       allowNull: false,
     },
   });

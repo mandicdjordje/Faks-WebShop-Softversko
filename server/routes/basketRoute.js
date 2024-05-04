@@ -1,32 +1,40 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const {
   authenticateUser,
   authorizePermissions,
-} = require('../middleware/authentification');
+} = require("../middleware/authentification");
 
 const {
   createBasket,
+  getProductFromBasket,
   deleteBasket,
   getUserBaskets,
-} = require('../controllers/basketController');
+} = require("../controllers/basketController");
+
+router.get(
+  `/basket_id/:basket_id`,
+  authenticateUser,
+  authorizePermissions("ADMIN_ROOT", "ADMIN_SHOP", "USER"),
+  getProductFromBasket
+);
 
 router.post(
-  '/create',
+  "/create",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP', 'USER'),
+  authorizePermissions("ADMIN_ROOT", "ADMIN_SHOP", "USER"),
   createBasket
 );
 router.get(
-  '/all',
+  "/all",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP', 'USER'),
+  authorizePermissions("ADMIN_ROOT", "ADMIN_SHOP", "USER"),
   getUserBaskets
 );
 router.delete(
-  '/delete/:basket_id',
+  "/delete/:basket_id",
   authenticateUser,
-  authorizePermissions('ADMIN_ROOT', 'ADMIN_SHOP', 'USER'),
+  authorizePermissions("ADMIN_ROOT", "ADMIN_SHOP", "USER"),
   deleteBasket
 );
 

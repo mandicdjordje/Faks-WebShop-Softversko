@@ -2,7 +2,7 @@ const pretragaProizvodaInput = document.getElementById("pretragaProizvoda");
 const pretraziProizvodDugme = document.getElementById("pretraziProizvodDugme");
 const proizvodiDiv = document.getElementById("proizvodi");
 const korpa = document.getElementById("korpa");
-
+let ukupnaCenaKorpeGlobalna = 0;
 const brojDiv = document.getElementById("broj");
 let productsForBasket = [];
 const selectedPoducts = [];
@@ -76,7 +76,7 @@ const dodajUKorpu = async (idProizvoda) => {
         },
       }
     );
-    if (response == 404) {
+    if (response.status == 404) {
       throw new Error("Nema proizvoda");
     } else {
       let proizvod = await response.json();
@@ -125,8 +125,11 @@ const IzbrisiProizvodIzKorpe = (id) => {
 };
 
 const poruci = async () => {
-  let ordered_products = { ordered_products: [...productsForBasket] };
-
+  let ordered_products = {
+    ordered_products: [...productsForBasket],
+    price: ukupnaCenaKorpeGlobalna,
+  };
+  console.log(ordered_products);
   try {
     const response = await fetch("http://localhost:3001/api/v1/basket/create", {
       method: "POST",
@@ -137,9 +140,16 @@ const poruci = async () => {
       },
     });
 
-    if (response == 200) {
+    if (response.status === 201) {
       const result = await response.json();
+      console.log(result);
       console.log("Uspesno");
+      alert("USPESNO");
+      setTimeout(() => {
+        window.location.href = "Porudzbine/index.html";
+      }, 1000);
+    } else {
+      throw "Nije uspela Porudzbina";
     }
   } catch (error) {
     console.error(error);
@@ -172,10 +182,10 @@ const iscrtajProizvode = (proizvodi) => {
 
 const iscrtajKorpu = () => {
   let html = `<h1>Korpa</h1>`;
-  let ukupnaCena = 0;
+  let ukupnaCenaKorpe = 0;
   productsForBasket.forEach((proizvod) => {
     let cena = Number((proizvod.quantity * proizvod.price).toFixed(2));
-    ukupnaCena = ukupnaCena + cena;
+    ukupnaCenaKorpe = ukupnaCenaKorpe + cena;
     html += `
       <div class="podaci-proizvod-korpa" id="proizvodKorpa${proizvod.product_id}">
       <p>${proizvod.productName}</p>
@@ -189,12 +199,12 @@ const iscrtajKorpu = () => {
     
     `;
   });
-  ukupnaCena = ukupnaCena.toFixed(2);
+  ukupnaCenaKorpe = ukupnaCenaKorpe.toFixed(2);
   if (productsForBasket.length >= 2) {
     html += `
     <div>
       <p>Ukupna cena Proizvoda je</p>
-      <p>${ukupnaCena}</p>
+      <p>${ukupnaCenaKorpe}</p>
     </div>
     `;
   }
@@ -202,6 +212,7 @@ const iscrtajKorpu = () => {
               <button onclick="poruci()">Poruci</button>
           </div>`;
 
+  ukupnaCenaKorpeGlobalna = ukupnaCenaKorpe;
   korpa.innerHTML = html;
 };
 

@@ -6,9 +6,11 @@ const { where } = require("sequelize");
 const createBasket = async (req, res) => {
   const user_id = req.userId;
   const { ordered_products } = req.body;
+  const price = req.body.price;
   console.log(ordered_products);
   const basket = await db.basket.create({
     korisnik_id: user_id,
+    price: price,
     status: "Accepted",
   });
 
@@ -17,6 +19,7 @@ const createBasket = async (req, res) => {
       quantity: basket_product.quantity,
       product_id: basket_product.product_id,
       basket_id: basket.basket_id,
+      productName: basket_product.productName,
       status: "Accepted",
     });
 
@@ -51,6 +54,17 @@ const getUserBaskets = async (req, res) => {
 };
 const getProductFromBasket = async (req, res) => {
   const basket_id = req.params.basket_id;
+  console.log(basket_id);
+
+  const products = await db.basket_product.findAll({
+    where: { basket_id: basket_id },
+  });
+
+  if (products) {
+    res.status(200).json({ products });
+  } else {
+    res.status(404).json({ message: "Nema proizvoda" });
+  }
 };
 const deleteBasket = async (req, res) => {
   const { basket_id } = req.params;
