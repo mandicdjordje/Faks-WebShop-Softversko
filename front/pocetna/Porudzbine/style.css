@@ -1,0 +1,25 @@
+html {
+    background-image: url(https://img.freepik.com/free-photo/pair-shopping-cart-miniatures_23-2148081027.jpg?w=900&t=st=1714903439~exp=1714904039~hmac=f7dc840c5ec620b4a146ff43b90a59ac0e2ff80a2105f262fad570539500e49f);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-height: 100vh;
+  }
+  .porudzbine-div
+  {
+    background-color: rgba(255, 194, 102,0.8);
+    padding: 25px;
+    border-radius: 3%;
+    width: 75%;
+  }
+  .porudzbine-div h1
+  {
+    font-style: italic;
+    font-weight: bold;
+  }
+  .svakaPorudzbina{
+    background-color: rgba(255, 240, 179,0.5);
+    width: 30%;
+    padding: 15px;
+    display: inline-block;
+    margin: 1%;
+  }

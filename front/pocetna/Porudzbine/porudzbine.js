@@ -79,7 +79,7 @@ const iscrtajPorudzbine = async () => {
     let proizvodi = await getProductsFromBakset(porudzbine[i].basket_id);
 
     html += `
-    <div id="porudzbina">
+    <div id="porudzbina" class="svakaPorudzbina">
     <p>Broj porudzbine ${porudzbine[i].basket_id}</p>
     `;
 
