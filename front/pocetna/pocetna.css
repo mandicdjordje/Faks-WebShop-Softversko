@@ -24,6 +24,7 @@ body {
 .proizvodi {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  width: 50%;
 }
 .allElements{
   width: 100%;
@@ -49,7 +50,7 @@ body {
   background-color: rgba(204, 255, 238, 0.6);
   float: right;
   height: 100%;
-  width: 50%;
+  width: 40%;
   padding: 15px;
   border-radius: 5%;
   margin-right: 20px;
