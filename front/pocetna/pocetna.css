@@ -1,5 +1,4 @@
-html
-{
+html {
   background-image: url(https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&w=600);
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -26,11 +25,10 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   width: 50%;
 }
-.allElements{
+.allElements {
   width: 100%;
 }
-.allElements input[type=text]
-{
+.allElements input[type="text"] {
   margin-left: 20px;
 }
 /* ULEPSATI OVO */
@@ -45,12 +43,11 @@ body {
   align-items: center;
   margin: 20px;
 }
-.korpa
-{
+.korpa {
   background-color: rgba(204, 255, 238, 0.6);
   float: right;
   height: 100%;
-  width: 40%;
+  width: 35%;
   padding: 15px;
   border-radius: 5%;
   margin-right: 20px;
@@ -61,11 +58,11 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-.proizvod *
-{
+.proizvod * {
   margin: 5px;
 }
-.proizvod p , .korpa p{
+.proizvod p,
+.korpa p {
   display: flex;
   justify-content: center;
   align-items: center;
