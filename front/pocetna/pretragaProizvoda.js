@@ -6,7 +6,7 @@ let ukupnaCenaKorpeGlobalna = 0;
 const brojDiv = document.getElementById("broj");
 let productsForBasket = [];
 const selectedPoducts = [];
-
+console.log(korpa);
 const pretragaProizvoda = async () => {
   try {
     if (pretragaProizvodaInput.value.length >= 3) {
@@ -63,6 +63,7 @@ const oduzmiProizvodFunkcija = (id, priceDiv, price) => {
 };
 
 const dodajUKorpu = async (idProizvoda) => {
+  debugger;
   const element = document.getElementById(idProizvoda);
   let kolicina = Number(element.innerHTML);
   try {
@@ -181,8 +182,10 @@ const iscrtajProizvode = (proizvodi) => {
 };
 
 const iscrtajKorpu = () => {
+  debugger;
   let html = `<h1>Korpa</h1>`;
   let ukupnaCenaKorpe = 0;
+
   productsForBasket.forEach((proizvod) => {
     let cena = Number((proizvod.quantity * proizvod.price).toFixed(2));
     ukupnaCenaKorpe = ukupnaCenaKorpe + cena;
