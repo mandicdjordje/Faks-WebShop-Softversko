@@ -1,3 +1,10 @@
+html
+{
+  background-image: url(https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&w=600);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  min-height: 100vh;
+}
 body {
   margin: 20px;
 }
@@ -18,26 +25,50 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-
+.allElements{
+  width: 100%;
+}
+.allElements input[type=text]
+{
+  margin-left: 20px;
+}
 /* ULEPSATI OVO */
 .proizvod {
   display: grid;
   grid-template-columns: 1fr;
-  width: 400px;
-  background-color: greenyellow;
+  width: 100%;
+  background-color: rgba(204, 255, 238, 0.6);
+  border-radius: 5%;
   padding: 15px;
   justify-content: center;
   align-items: center;
   margin: 20px;
 }
+.korpa
+{
+  background-color: rgba(204, 255, 238, 0.6);
+  float: right;
+  height: 100%;
+  width: 50%;
+  padding: 15px;
+  border-radius: 5%;
+  margin-right: 20px;
+  position: relative;
+  bottom: 150px;
+}
 .prozivod-elementi {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-.proizvod p {
+.proizvod *
+{
+  margin: 5px;
+}
+.proizvod p , .korpa p{
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: large;
 }
 
 .ukloni {
@@ -56,7 +87,7 @@ body {
   padding: 20px;
 }
 .dugmad-korpe {
-  display: flex;
+  margin-top: 15px;
   justify-content: center;
   align-items: center;
 }
