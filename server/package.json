@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
@@ -10,5 +13,9 @@
     "mysql2": "^3.9.7",
     "nodemon": "^3.1.0",
     "sequelize": "^6.37.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0"
   }
 }

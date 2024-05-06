@@ -27,7 +27,6 @@ const createProduct = async (req, res) => {
 };
 
 const getAllProduct = async (req, res) => {
-  console.log(req.query.manda);
   const proizvodi = await db.product.findAll();
 
   res.status(201).json({ proizvodi });
