@@ -63,7 +63,6 @@ const oduzmiProizvodFunkcija = (id, priceDiv, price) => {
 };
 
 const dodajUKorpu = async (idProizvoda) => {
-  debugger;
   const element = document.getElementById(idProizvoda);
   let kolicina = Number(element.innerHTML);
   try {
@@ -126,34 +125,42 @@ const IzbrisiProizvodIzKorpe = (id) => {
 };
 
 const poruci = async () => {
-  let ordered_products = {
+  let proizvodiZaKorpu = {
     ordered_products: [...productsForBasket],
     price: ukupnaCenaKorpeGlobalna,
   };
-  console.log(ordered_products);
-  try {
-    const response = await fetch("http://localhost:3001/api/v1/basket/create", {
-      method: "POST",
-      body: JSON.stringify(ordered_products),
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-    });
+  console.log(proizvodiZaKorpu.ordered_products);
 
-    if (response.status === 201) {
-      const result = await response.json();
-      console.log(result);
-      console.log("Uspesno");
-      alert("USPESNO");
-      setTimeout(() => {
-        window.location.href = "Porudzbine/index.html";
-      }, 1000);
-    } else {
-      throw "Nije uspela Porudzbina";
+  if (proizvodiZaKorpu.ordered_products.length == 0) {
+    alert("Korpa je prazna popunite korpu");
+  } else {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/api/v1/basket/create",
+        {
+          method: "POST",
+          body: JSON.stringify(proizvodiZaKorpu),
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        const result = await response.json();
+        console.log(result);
+        console.log("Uspesno");
+        alert("USPESNO");
+        setTimeout(() => {
+          window.location.href = "Porudzbine/index.html";
+        }, 1000);
+      } else {
+        throw "Nije uspela Porudzbina";
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
   }
 };
 
@@ -182,7 +189,6 @@ const iscrtajProizvode = (proizvodi) => {
 };
 
 const iscrtajKorpu = () => {
-  debugger;
   let html = `<h1>Korpa</h1>`;
   let ukupnaCenaKorpe = 0;
 

@@ -92,24 +92,6 @@ const subtractProductsQuantity = async (req, res) => {
   res.status(200).json({ product });
 };
 
-// DELETE PRODUCT SA IMENOM TRENUTNO NE TREBA
-// const deleteProduct = async (req, res) => {
-//   const productName = req.params.productName;
-
-//   const product = await db.product.findOne({
-//     where: { productName: productName },
-//   });
-//   console.log(product);
-//   if (product) {
-//     await product.destroy();
-//     res.status(204).send();
-//   } else {
-//     res.status(404).json({
-//       message: 'proizvod nije pronadjen',
-//     });
-//   }
-// };
-
 const deleteProduct = async (req, res) => {
   const productId = req.params.productId;
 
